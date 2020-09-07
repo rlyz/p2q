@@ -16,9 +16,11 @@ class quiz extends React.Component {
     return (
       <html>
         <head />
+        <input type="hidden" name="stage 8 answer" value="youfoundme" />
         <body>
           <div>
             {username} {stage}
+            <input type="hidden" name="stage8" value="youfoundme" />
           </div>
           <div>{ranking}</div>
           <div>
@@ -27,6 +29,9 @@ class quiz extends React.Component {
               {question}
               <input type="text" name="answer" />
               <button>Submit</button>
+            </form>
+            <form class="logout" action="/quiz/logout" method="post">
+            <button>logout</button>
             </form>
           </div>
         </body>

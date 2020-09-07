@@ -9,5 +9,6 @@ CREATE TABLE IF NOT EXISTS users (
   CREATE TABLE IF NOT EXISTS stages (
   id SERIAL PRIMARY KEY,
   stage_id INTEGER UNIQUE,
-  question TEXT
+  question TEXT,
+  ans TEXT
   );

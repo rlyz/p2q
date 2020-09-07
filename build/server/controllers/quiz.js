@@ -58,7 +58,10 @@ module.exports = (db) => {
           response.cookie('bij', sha256(SALT + result[0].name));
           response.cookie('user_id', result[0].id);
           response.cookie('fucker', true);
-          response.render('quiz/home', {result: result});
+          if (result[0].stage == 9){
+            response.render('quiz/endgame', {result:result})
+        } else {
+        response.render('quiz/home', {result: result});}
         } else {
           let text = 'WRONG PASSWORD RETARD';
           response.render('quiz/login', {text});
@@ -98,10 +101,20 @@ module.exports = (db) => {
       if (error) {
         console.log(error, 'ansatttempt error controller');
       } else {
-        response.render('quiz/home', {result: result});
+        if (result[0].stage == 9){
+            response.render('quiz/endgame', {result:result})
+        } else {
+        response.render('quiz/home', {result: result});}
       }
     });
   };
+
+  let logout = (request,response) =>{
+    response.clearCookie("bij");
+    response.clearCookie("user_id");
+    response.clearCookie("fucker");
+    response.redirect('/quiz/login');
+  }
 
   let display = (request, response) => {
     response.render('quiz/home', {result: result});
@@ -114,6 +127,7 @@ module.exports = (db) => {
     registerPage,
     registerAttempt,
     display,
-    ansAttempt
+    ansAttempt,
+    logout
   };
 };

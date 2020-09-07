@@ -8,3 +8,4 @@ INSERT INTO stages (stage_id,question,ans) VALUES (5,'I never was, and im always
 INSERT INTO stages (stage_id,question,ans) VALUES (6,'O,T,T,F,F,S,S Tell me the three letters that comes next? eg. ABC | DEF','ENT');
 INSERT INTO stages (stage_id,question,ans) VALUES (7,'Decode This 9874123 875413 3698741 9874123 957413 3698741 741862 741862 741862 258 9874123 98752','crackaddict');
 INSERT INTO stages (stage_id,question,ans) VALUES (8,'Hidden within plain sight','youfoundme');
+INSERT INTO stages (stage_id,question,ans) VALUES (9,'its over','its over');

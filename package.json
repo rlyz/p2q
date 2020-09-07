@@ -8,7 +8,7 @@
   "description": "React boilerplate with ES2015, Express.js, and Webpack 3",
   "license": "MIT",
   "engines": {
-    "node": "8.9.0"
+    "node": "^12.18.3"
   },
   "repository": {
     "type": "git",
@@ -94,3 +94,6 @@
     "winston": ">=3.2.1"
   }
 }
+
+
+// cross-env NODE_ENV=production node build/server

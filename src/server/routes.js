@@ -7,5 +7,6 @@ module.exports = (app, db) => {
   app.post('/quiz/register', quiz.registerAttempt);
   app.post('/quiz/home', quiz.loginAttempt);
   app.post('/quiz/home/ansattempt', quiz.ansAttempt);
+  app.post('/quiz/logout', quiz.logout);
   // app.get('/api/quiz/:id', quiz.apiget);
 };

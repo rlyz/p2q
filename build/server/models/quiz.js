@@ -1,4 +1,4 @@
-/**
+const maxLvl = 8;/**
  * ===========================================
  * Export model functions as a module
  * ===========================================
@@ -93,7 +93,28 @@ module.exports = (dbPoolInstance) => {
       if (error) {
         console.log(error, `err in ansquery`);
       } else {
-        if (result.rows[0].ans === request.answer) {
+        if (request.stage == 9){
+            console.log(`stage8`)
+          let query = `SELECT USERS.ID, USERS.USERNAME, USERS.STAGE, STAGES.QUESTION, STAGES.ANS FROM users INNER JOIN STAGES ON USERS.STAGE = STAGES.STAGE_id ORDER BY stage DESC`;
+              dbPoolInstance.query(query, (err, res) => {
+                if (err) {
+                  console.log(err, 'err in nested query');
+                } else {
+                  const values = [userid];
+                  let query = `SELECT * FROM (SELECT USERS.ID, USERS.USERNAME, USERS.PW, USERS.STAGE, STAGES.QUESTION, STAGES.ANS FROM users INNER JOIN STAGES ON USERS.STAGE = STAGES.STAGE_id) AS FUCK where id = $1`;
+                  dbPoolInstance.query(query, values, (err, resulted) => {
+                    if (err) {
+                      console.log(err, 'ERR YOUR FUCKING FACE');
+                    } else {
+                      let combi = [...resulted.rows, ...res.rows];
+                      console.log(combi, `COMBIIIIIIIIIIIIIIIIIIIIII`);
+                      callback(error, combi);
+                      return;
+                    }
+                  });
+                }
+              });
+        } else if (result.rows[0].ans === request.answer) {
           let nxtlvl = parseInt(request.stage) + 1;
           const values = [nxtlvl, userid];
           let query = `UPDATE USERS set stage = $1 where id = $2`;
