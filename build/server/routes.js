@@ -1,6 +1,6 @@
 module.exports = (app, db) => {
   const quiz = require('./controllers/quiz')(db);
-
+  app.get('/', quiz.loginPage);
   app.get('/quiz/login', quiz.loginPage);
   app.post('/quiz/login', quiz.loginAttempt);
   app.get('/quiz/register', quiz.registerPage);
