@@ -38,8 +38,8 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jsx');
 app.engine('jsx', reactEngine);
 
-require('./routes')(app, db);
 
+require('./routes')(app, db);
 // application routes (this goes last)
 setupAppRoutes(app);
 
