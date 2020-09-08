@@ -64,7 +64,7 @@ module.exports = (db) => {
         response.render('quiz/home', {result: result});}
         } else {
           let text = 'WRONG PASSWORD RETARD';
-          response.render('quiz/login', {text});
+          response.render('quiz/login', {text: text});
         }
       }
     });
@@ -104,6 +104,7 @@ module.exports = (db) => {
         if (result[0].stage == 9){
             response.render('quiz/endgame', {result:result})
         } else {
+          
         response.render('quiz/home', {result: result});}
       }
     });
