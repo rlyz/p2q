@@ -1,5 +1,4 @@
-# F*** OFF
-Quiz Game
+# Impossible Quiz
 
 Basic quiz game that has a leaderboard incoporated within it.
 
