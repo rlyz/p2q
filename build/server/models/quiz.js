@@ -1,4 +1,5 @@
-const maxLvl = 8;/**
+const maxLvl = 8;
+/**
  * ===========================================
  * Export model functions as a module
  * ===========================================
@@ -55,7 +56,7 @@ module.exports = (dbPoolInstance) => {
 
   let loginQuery = (request, callback) => {
     const values = [request.username];
-    let query = `SELECT * FROM (SELECT USERS.ID, USERS.USERNAME, USERS.PW, USERS.STAGE, STAGES.QUESTION, STAGES.ANS FROM users INNER JOIN STAGES ON USERS.STAGE = STAGES.STAGE_id) AS FUCK where username = $1`;
+    let query = `SELECT * FROM (SELECT USERS.ID, USERS.USERNAME, USERS.PW, USERS.STAGE, STAGES.QUESTION, STAGES.ANS FROM users INNER JOIN STAGES ON USERS.STAGE = STAGES.STAGE_id) AS test where username = $1`;
     dbPoolInstance.query(query, values, (error, result) => {
       if (error) {
         console.log(error, 'login query error');
@@ -88,32 +89,32 @@ module.exports = (dbPoolInstance) => {
 
   let ansQuery = (userid, request, callback) => {
     const values = [userid];
-    let query = `SELECT * FROM (SELECT USERS.ID, USERS.USERNAME, USERS.PW, USERS.STAGE, STAGES.QUESTION, STAGES.ANS FROM users INNER JOIN STAGES ON USERS.STAGE = STAGES.STAGE_id) AS FUCK where id = $1`;
+    let query = `SELECT * FROM (SELECT USERS.ID, USERS.USERNAME, USERS.PW, USERS.STAGE, STAGES.QUESTION, STAGES.ANS FROM users INNER JOIN STAGES ON USERS.STAGE = STAGES.STAGE_id) AS test where id = $1`;
     dbPoolInstance.query(query, values, (error, result) => {
       if (error) {
         console.log(error, `err in ansquery`);
       } else {
-        if (request.stage == 9){
-            console.log(`stage8`)
+        if (request.stage == 9) {
+          console.log(`stage8`);
           let query = `SELECT USERS.ID, USERS.USERNAME, USERS.STAGE, STAGES.QUESTION, STAGES.ANS FROM users INNER JOIN STAGES ON USERS.STAGE = STAGES.STAGE_id ORDER BY stage DESC`;
-              dbPoolInstance.query(query, (err, res) => {
+          dbPoolInstance.query(query, (err, res) => {
+            if (err) {
+              console.log(err, 'err in nested query');
+            } else {
+              const values = [userid];
+              let query = `SELECT * FROM (SELECT USERS.ID, USERS.USERNAME, USERS.PW, USERS.STAGE, STAGES.QUESTION, STAGES.ANS FROM users INNER JOIN STAGES ON USERS.STAGE = STAGES.STAGE_id) AS test where id = $1`;
+              dbPoolInstance.query(query, values, (err, resulted) => {
                 if (err) {
-                  console.log(err, 'err in nested query');
+                  console.log(err, 'ERR YOUR testING err');
                 } else {
-                  const values = [userid];
-                  let query = `SELECT * FROM (SELECT USERS.ID, USERS.USERNAME, USERS.PW, USERS.STAGE, STAGES.QUESTION, STAGES.ANS FROM users INNER JOIN STAGES ON USERS.STAGE = STAGES.STAGE_id) AS FUCK where id = $1`;
-                  dbPoolInstance.query(query, values, (err, resulted) => {
-                    if (err) {
-                      console.log(err, 'ERR YOUR FUCKING FACE');
-                    } else {
-                      let combi = [...resulted.rows, ...res.rows];
-                      console.log(combi, `COMBIIIIIIIIIIIIIIIIIIIIII`);
-                      callback(error, combi);
-                      return;
-                    }
-                  });
+                  let combi = [...resulted.rows, ...res.rows];
+                  console.log(combi, `COMBIIIIIIIIIIIIIIIIIIIIII`);
+                  callback(error, combi);
+                  return;
                 }
               });
+            }
+          });
         } else if (result.rows[0].ans === request.answer) {
           let nxtlvl = parseInt(request.stage) + 1;
           const values = [nxtlvl, userid];
@@ -122,17 +123,17 @@ module.exports = (dbPoolInstance) => {
             if (err) {
               console.log(err, `err in nested updated query`);
             } else {
-              console.log(ress, 'fucking hell');
+              console.log(ress, 'testing hell');
               let query = `SELECT USERS.ID, USERS.USERNAME, USERS.STAGE, STAGES.QUESTION, STAGES.ANS FROM users INNER JOIN STAGES ON USERS.STAGE = STAGES.STAGE_id ORDER BY stage DESC`;
               dbPoolInstance.query(query, (err, res) => {
                 if (err) {
                   console.log(err, 'err in nested query');
                 } else {
                   const values = [userid];
-                  let query = `SELECT * FROM (SELECT USERS.ID, USERS.USERNAME, USERS.PW, USERS.STAGE, STAGES.QUESTION, STAGES.ANS FROM users INNER JOIN STAGES ON USERS.STAGE = STAGES.STAGE_id) AS FUCK where id = $1`;
+                  let query = `SELECT * FROM (SELECT USERS.ID, USERS.USERNAME, USERS.PW, USERS.STAGE, STAGES.QUESTION, STAGES.ANS FROM users INNER JOIN STAGES ON USERS.STAGE = STAGES.STAGE_id) AS test where id = $1`;
                   dbPoolInstance.query(query, values, (err, resulted) => {
                     if (err) {
-                      console.log(err, 'ERR YOUR FUCKING FACE');
+                      console.log(err, 'ERR YOUR testING err');
                     } else {
                       let combi = [...resulted.rows, ...res.rows];
                       console.log(combi, `COMBIIIIIIIIIIIIIIIIIIIIII`);

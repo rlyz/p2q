@@ -8,5 +8,4 @@ import App from './App';
 
 // global styles
 
-
 // ReactDOM.render(<App />, document.getElementById('app'));

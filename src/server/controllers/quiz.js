@@ -1,4 +1,4 @@
-const SALT = 'FuCk OfF';
+const SALT = 'OfF';
 const sha256 = require('js-sha256');
 
 module.exports = (db) => {
@@ -55,13 +55,14 @@ module.exports = (db) => {
       } else {
         let password = sha256(request.body.password);
         if (result[0].pw === password) {
-          response.cookie('bij', sha256(SALT + result[0].name));
+          response.cookie('hmm', sha256(SALT + result[0].name));
           response.cookie('user_id', result[0].id);
-          response.cookie('fucker', true);
-          if (result[0].stage == 9){
-            response.render('quiz/endgame', {result:result})
-        } else {
-        response.render('quiz/home', {result: result});}
+          response.cookie('er', true);
+          if (result[0].stage == 9) {
+            response.render('quiz/endgame', {result: result});
+          } else {
+            response.render('quiz/home', {result: result});
+          }
         } else {
           let text = 'WRONG PASSWORD RETARD';
           response.render('quiz/login', {text: text});
@@ -71,7 +72,7 @@ module.exports = (db) => {
   };
 
   let registerPage = (request, response) => {
-    if (request.cookies.login === true && request.cookies.fucker === undefined) {
+    if (request.cookies.login === true && request.cookies.er === undefined) {
       let userid = request.cookies.userid;
       response.render(`quiz/id/'${userid}'`, request.cookies);
     } else {
@@ -101,21 +102,21 @@ module.exports = (db) => {
       if (error) {
         console.log(error, 'ansatttempt error controller');
       } else {
-        if (result[0].stage == 9){
-            response.render('quiz/endgame', {result:result})
+        if (result[0].stage == 9) {
+          response.render('quiz/endgame', {result: result});
         } else {
-          
-        response.render('quiz/home', {result: result});}
+          response.render('quiz/home', {result: result});
+        }
       }
     });
   };
 
-  let logout = (request,response) =>{
-    response.clearCookie("bij");
-    response.clearCookie("user_id");
-    response.clearCookie("fucker");
+  let logout = (request, response) => {
+    response.clearCookie('hmm');
+    response.clearCookie('user_id');
+    response.clearCookie('er');
     response.redirect('/quiz/login');
-  }
+  };
 
   let display = (request, response) => {
     response.render('quiz/home', {result: result});
