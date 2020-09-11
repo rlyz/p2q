@@ -25,13 +25,6 @@ export default class login extends Component {
               Not Registered? <a href="../quiz/register">Register</a>
             </div>
           </Form>
-          <Button
-            onClick={() => {
-              console.log('button clicked');
-            }}
-          >
-            hello
-          </Button>
         </div>
       </html>
     );
